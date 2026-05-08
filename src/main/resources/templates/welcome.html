@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+    welcome.html
+    Author: Sanjula Perera | Student ID: S1532573
+    Subject: BIT235 Object Oriented Programming
+    Assessment: Assessment 2, Part A – Wiki Administrator Login
+    Date: 2026
+
+    Purpose: This is the View for successful authentication.
+             Displayed when the Controller determines the submitted credentials are valid.
+             Thymeleaf injects the "welcomeMessage" and "username" attributes
+             that were placed in the Model by AuthController.
+
+    Key Thymeleaf attributes used:
+      th:text="${welcomeMessage}" – replaces the element's text with the Model value
+      th:text="${username}"       – inserts the username from the Model
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Admin – Welcome</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="welcome-body">
+    <header class="site-header">
+        <div class="page-shell header-row">
+            <h1 class="brand-name">WikiAdmin</h1>
+            <p class="header-tagline">Administrator Dashboard</p>
+        </div>
+    </header>
+
+    <main class="page-shell page-main">
+        <section class="card result-card result-card--success">
+            <h2 class="card-title">Login successful</h2>
+            <p class="result-message" th:text="${welcomeMessage}">Welcome message will appear here.</p>
+            <p class="info-line">Signed in as <strong th:text="${username}">username</strong></p>
+            <a th:href="@{/logout}" class="btn btn-primary">Log Out</a>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>BIT235 Object Oriented Programming | Assessment 2 Part A</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+    error.html
+    Author: Sanjula Perera | Student ID: S1532573
+    Subject: BIT235 Object Oriented Programming
+    Assessment: Assessment 2, Part A – Wiki Administrator Login
+    Date: 2026
+
+    Purpose: This is the View for failed authentication.
+             Displayed when the Controller determines the submitted credentials are INVALID.
+             Thymeleaf renders the "errorMessage" attribute from the Model,
+             and also pre-fills the username field so the user doesn't have to retype it.
+
+    Key Thymeleaf attributes used:
+      th:text="${errorMessage}"   – inserts the error message from the Model
+      th:object="${loginForm}"    – binds the form back to the LoginForm object
+      th:field="*{username}"      – pre-fills the username field with what the user typed
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Admin – Login Failed</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="error-body">
+    <header class="site-header">
+        <div class="page-shell header-row">
+            <h1 class="brand-name">WikiAdmin</h1>
+            <p class="header-tagline">Sign In Error</p>
+        </div>
+    </header>
+
+    <main class="page-shell page-main">
+        <section class="card result-card result-card--error">
+            <h2 class="card-title">Login failed</h2>
+            <p class="result-message error-message" th:text="${errorMessage}">Error message will appear here.</p>
+
+            <form th:action="@{/login}" th:object="${loginForm}" method="post" class="login-form">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text"
+                           th:field="*{username}"
+                           class="form-input form-input--error"
+                           placeholder="Enter username"
+                           autocomplete="username"
+                           required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password"
+                           th:field="*{password}"
+                           class="form-input form-input--error"
+                           placeholder="Enter password"
+                           autocomplete="current-password"
+                           required />
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Try Again</button>
+                    <a th:href="@{/login}" class="btn btn-secondary">Back to Login</a>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>BIT235 Object Oriented Programming | Assessment 2 Part A</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+/*
+ * style.css
+ * Author: Sanjula Perera | Student ID: S1532573
+ * Subject: BIT235 Object Oriented Programming
+ * Assessment: Assessment 2, Part A – Wiki Administrator Login
+ * Date: 2026
+ */
+
+:root {
+    --bg: #f7f8fb;
+    --surface: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --line: #d1d5db;
+    --accent: #1d4ed8;
+    --accent-dark: #1e40af;
+    --danger: #b91c1c;
+    --danger-bg: #fef2f2;
+    --success: #166534;
+    --success-bg: #f0fdf4;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+}
+
+.page-shell {
+    width: min(100%, 720px);
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.site-header {
+    border-bottom: 1px solid var(--line);
+    background: var(--surface);
+}
+
+.header-row {
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.brand-name {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.header-tagline {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.page-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.card {
+    width: min(100%, 460px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.card-title {
+    margin: 0 0 0.4rem;
+    font-size: 1.25rem;
+}
+
+.card-subtitle {
+    margin: 0 0 1.25rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.form-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.68rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-size: 0.96rem;
+    color: var(--text);
+    background: #fff;
+}
+
+.form-input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.12);
+}
+
+.form-input--error {
+    border-color: #fca5a5;
+    background: #fff;
+}
+
+.form-input--error:focus {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 2px rgba(185, 28, 28, 0.12);
+}
+
+.form-actions {
+    margin-top: 0.25rem;
+    display: flex;
+    gap: 0.6rem;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+}
+
+.btn-secondary {
+    background: #fff;
+    border-color: var(--line);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: #f9fafb;
+}
+
+.hint-text {
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+code {
+    padding: 0.1rem 0.35rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: #f3f4f6;
+    font-family: monospace;
+}
+
+.result-card--success {
+    border-left: 4px solid var(--success);
+    background: linear-gradient(0deg, var(--surface), var(--success-bg));
+}
+
+.result-card--error {
+    border-left: 4px solid var(--danger);
+}
+
+.result-message {
+    margin: 0.6rem 0 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: #f9fafb;
+}
+
+.error-message {
+    color: var(--danger);
+    background: var(--danger-bg);
+    border: 1px solid #fecaca;
+}
+
+.info-line {
+    margin: 0 0 0.6rem;
+}
+
+.info-line--muted {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.site-footer {
+    border-top: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--muted);
+    text-align: center;
+    font-size: 0.82rem;
+    padding: 0.9rem 1rem;
+}
+
+@media (max-width: 560px) {
+    .header-row {
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+    }
+
+    .card {
+        padding: 1.15rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+}

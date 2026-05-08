@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+    login.html
+    Author: Sanjula Perera | Student ID: S1532573
+    Subject: BIT235 Object Oriented Programming
+    Assessment: Assessment 2, Part A – Wiki Administrator Login
+    Date: 2026
+
+    Purpose: This is the View layer for the login page (the "V" in MVC).
+             Thymeleaf processes this template on the server before sending HTML to the browser.
+             The "th:" prefix on attributes are Thymeleaf directives (not standard HTML).
+
+    Key Thymeleaf attributes used:
+      th:object   – binds the form to the LoginForm model object from the Controller
+      th:field    – binds an input field to a LoginForm property (sets name, id, value)
+      th:action   – sets the form's POST action URL
+-->
+
+<!-- xmlns:th declares the Thymeleaf namespace so th:* attributes are recognised -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- Responsive viewport: ensures the page scales correctly on all screen sizes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki Admin – Login</title>
+    <!-- Link to external stylesheet in /static/css/ folder -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="login-body">
+    <header class="site-header">
+        <div class="page-shell header-row">
+            <h1 class="brand-name">WikiAdmin</h1>
+            <p class="header-tagline">Administrator Login</p>
+        </div>
+    </header>
+
+    <main class="page-shell page-main">
+        <section class="card">
+            <h2 class="card-title">Sign in</h2>
+            <p class="card-subtitle">Use your administrator credentials to continue.</p>
+
+            <form th:action="@{/login}" th:object="${loginForm}" method="post" class="login-form">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text"
+                           th:field="*{username}"
+                           class="form-input"
+                           placeholder="Enter username"
+                           autocomplete="username"
+                           required />
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password"
+                           th:field="*{password}"
+                           class="form-input"
+                           placeholder="Enter password"
+                           autocomplete="current-password"
+                           required />
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </div>
+            </form>
+
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>BIT235 Object Oriented Programming | Assessment 2 Part A</p>
+    </footer>
+
+</body>
+</html>

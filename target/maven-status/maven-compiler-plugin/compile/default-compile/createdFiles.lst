@@ -1,0 +1,5 @@
+com/wiki/admin/WikiAdminApplication.class
+com/wiki/admin/service/AuthService.class
+com/wiki/admin/controller/AuthController.class
+com/wiki/admin/repository/UserRepository.class
+com/wiki/admin/model/LoginForm.class
