@@ -19,7 +19,7 @@
     <artifactId>admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>wiki-admin</name>
-    <description>BIT235 Assessment 2 Part A – Wiki Administrator Login</description>
+    <description>BIT235 Assessment 2 Part B - Wiki Content Management and Admin Console</description>
 
     <properties>
         <!-- Use Java 17 (LTS, required by Spring Boot 3.x) -->
@@ -28,19 +28,38 @@
 
     <dependencies>
 
-        <!-- Spring Web MVC – enables @Controller, @GetMapping, @PostMapping, etc. -->
+        <!-- Spring Web MVC - controllers and embedded web server -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- Thymeleaf – server-side HTML templating engine for the View layer -->
+        <!-- Thymeleaf - server-side HTML views -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-        <!-- Spring Boot Test – for unit and integration tests -->
+        <!-- Spring Data JPA - repository and entity support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- H2 - simple in-memory database for marking and testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- BCrypt password hashing without adding full Spring Security screens -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Test - JUnit and MockMvc -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -51,10 +70,30 @@
 
     <build>
         <plugins>
-            <!-- Spring Boot Maven Plugin – packages the app as an executable JAR -->
+            <!-- Spring Boot Maven Plugin - runs and packages the app -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <arguments>
+                        <argument>--debug=false</argument>
+                        <argument>--logging.level.root=INFO</argument>
+                        <argument>--logging.level.org.springframework=INFO</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+
+            <!-- Keep test output readable on computers that have DEBUG set -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <systemPropertyVariables>
+                        <debug>false</debug>
+                        <logging.level.root>INFO</logging.level.root>
+                        <logging.level.org.springframework>INFO</logging.level.org.springframework>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -1,0 +1,22 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Categories')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-shell page-main">
+    <section class="page-title">
+        <h1>Categories</h1>
+        <p class="lead">Choose a category to view related articles.</p>
+    </section>
+
+    <section class="category-grid">
+        <article class="category-card" th:each="category : ${categories}">
+            <h2><a th:href="@{/categories/{id}/articles(id=${category.id})}" th:text="${category.name}">Category</a></h2>
+            <p th:text="${category.description}">Description</p>
+        </article>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

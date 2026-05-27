@@ -1,0 +1,21 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${article.title})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-shell page-main">
+    <article class="article-detail">
+        <h1 th:text="${article.title}">Article title</h1>
+        <p class="meta">
+            Created: <span th:text="${#temporals.format(article.createdDate, 'dd MMMM yyyy')}">20 March 2023</span><br>
+            Category:
+            <a th:href="@{/categories/{id}/articles(id=${article.category.id})}" th:text="${article.category.name}">Category</a>
+        </p>
+        <p class="article-body" th:text="${article.content}">Article content.</p>
+        <a class="button button-secondary" th:href="@{/articles}">Back to Articles</a>
+    </article>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

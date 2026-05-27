@@ -1,0 +1,24 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${category.name})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-shell page-main">
+    <section class="page-title">
+        <h1 th:text="${category.name}">Category</h1>
+        <p class="lead" th:text="${category.description}">Category description.</p>
+    </section>
+
+    <section class="article-list">
+        <article class="article-card" th:each="article : ${articles}">
+            <h2><a th:href="@{/articles/{id}(id=${article.id})}" th:text="${article.title}">Article title</a></h2>
+            <p class="meta" th:text="${#temporals.format(article.createdDate, 'dd MMMM yyyy')}">20 March 2023</p>
+            <p th:text="${article.preview}">Article preview text.</p>
+            <a class="read-more" th:href="@{/articles/{id}(id=${article.id})}">Read more</a>
+        </article>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+</body>
+</html>

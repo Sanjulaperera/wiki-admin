@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80" role="img" aria-label="WikiAdmin logo">
+  <rect width="80" height="80" rx="12" fill="#285f9f"/>
+  <path d="M20 18h27c7 0 13 6 13 13v31H31c-6 0-11-5-11-11V18z" fill="#ffffff"/>
+  <path d="M29 28h22M29 38h22M29 48h16" stroke="#285f9f" stroke-width="5" stroke-linecap="round"/>
+</svg>

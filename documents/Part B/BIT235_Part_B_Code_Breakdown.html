@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BIT235 Part B Code Breakdown</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: #1f2937;
+            line-height: 1.45;
+            margin: 42px;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            font-size: 21px;
+            margin-top: 28px;
+            border-bottom: 1px solid #d7dde5;
+            padding-bottom: 5px;
+            color: #285f9f;
+        }
+
+        h3 {
+            font-size: 16px;
+            margin-top: 18px;
+            color: #1d4778;
+        }
+
+        p, li {
+            font-size: 12.5px;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            font-size: 11.5px;
+            background: #f3f4f6;
+            border: 1px solid #d7dde5;
+            padding: 1px 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0 16px;
+            font-size: 12px;
+        }
+
+        th, td {
+            border: 1px solid #d7dde5;
+            padding: 7px;
+            vertical-align: top;
+        }
+
+        th {
+            background: #eef3f8;
+            text-align: left;
+        }
+
+        .subtitle {
+            color: #667085;
+            margin-top: 0;
+        }
+
+        .note {
+            background: #f6f7f9;
+            border: 1px solid #d7dde5;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+<h1>BIT235 Assessment 2 - Part B</h1>
+<p class="subtitle">Wiki Content Management and Admin Console - Code Breakdown</p>
+<p><strong>Student:</strong> Sanjula Perera<br>
+    <strong>Student ID:</strong> S1532573<br>
+    <strong>Subject:</strong> BIT235 Object Oriented Programming<br>
+    <strong>Semester:</strong> 2026 Sem 1</p>
+
+<h2>1. What the Application Does</h2>
+<p>This project extends the Part A login system into a Spring Boot MVC wiki application. Visitors can read articles and browse categories without logging in. An admin can log in and create, edit, or delete articles.</p>
+<p>The project follows the Controller, Service, Repository, Model, and View structure used in class. It also uses sessions for admin login, BCrypt password hashing, an H2 database, Thymeleaf templates, CSS, JavaScript validation, and JUnit tests.</p>
+
+<h2>2. How to Run the Project</h2>
+<h3>Step 1 - Open Terminal</h3>
+<p>Open Terminal on the Mac.</p>
+
+<h3>Step 2 - Go to the Project Folder</h3>
+<p>Run this command. Change the path only if the folder is somewhere else:</p>
+<p><code>cd /Users/sanjula/Documents/wiki-admin</code></p>
+
+<h3>Step 3 - Check Java and Maven</h3>
+<p>Run these commands:</p>
+<p><code>java -version</code><br>
+    <code>mvn -version</code></p>
+<p>Java 17 or newer is suitable for this Spring Boot project.</p>
+
+<h3>Step 4 - Start the Application</h3>
+<p>Run:</p>
+<p><code>mvn spring-boot:run</code></p>
+<p>When the app starts, open this address in the browser:</p>
+<p><code>http://localhost:8080</code></p>
+
+<h3>Step 5 - Login Details</h3>
+<table>
+    <tr>
+        <th>Purpose</th>
+        <th>Username</th>
+        <th>Password</th>
+    </tr>
+    <tr>
+        <td>Marker/testing account</td>
+        <td>1</td>
+        <td>1</td>
+    </tr>
+    <tr>
+        <td>Student admin account</td>
+        <td>sanjula</td>
+        <td>123</td>
+    </tr>
+</table>
+
+<h3>Step 6 - Stop the Application</h3>
+<p>Go back to Terminal and press <code>Control + C</code>.</p>
+
+<h2>3. Pages to Demonstrate</h2>
+<table>
+    <tr>
+        <th>Page</th>
+        <th>URL</th>
+        <th>What to Show</th>
+    </tr>
+    <tr>
+        <td>Home</td>
+        <td><code>/</code></td>
+        <td>Recent article previews with Read more links.</td>
+    </tr>
+    <tr>
+        <td>Articles</td>
+        <td><code>/articles</code></td>
+        <td>All public articles.</td>
+    </tr>
+    <tr>
+        <td>Single Article</td>
+        <td><code>/articles/1</code></td>
+        <td>Full article view and category link.</td>
+    </tr>
+    <tr>
+        <td>Categories</td>
+        <td><code>/categories</code></td>
+        <td>All categories with links to matching articles.</td>
+    </tr>
+    <tr>
+        <td>Admin</td>
+        <td><code>/admin</code></td>
+        <td>Redirects to login when not logged in. Shows article management after login.</td>
+    </tr>
+    <tr>
+        <td>Create Article</td>
+        <td><code>/admin/articles/new</code></td>
+        <td>Create a new article with title, category, and content.</td>
+    </tr>
+</table>
+
+<h2>4. Project Structure</h2>
+<table>
+    <tr>
+        <th>Folder</th>
+        <th>Purpose</th>
+    </tr>
+    <tr>
+        <td><code>controller</code></td>
+        <td>Handles browser requests and chooses which page to show.</td>
+    </tr>
+    <tr>
+        <td><code>service</code></td>
+        <td>Contains application logic such as login checking and article validation.</td>
+    </tr>
+    <tr>
+        <td><code>repository</code></td>
+        <td>Uses Spring Data JPA to save and load database records.</td>
+    </tr>
+    <tr>
+        <td><code>model</code></td>
+        <td>Contains the Admin, Category, Article, LoginForm, and ArticleForm classes.</td>
+    </tr>
+    <tr>
+        <td><code>templates</code></td>
+        <td>Thymeleaf HTML pages shown to the browser.</td>
+    </tr>
+    <tr>
+        <td><code>static</code></td>
+        <td>CSS, JavaScript, and image files used by the pages.</td>
+    </tr>
+    <tr>
+        <td><code>src/test</code></td>
+        <td>JUnit tests for login, article validation, and admin access.</td>
+    </tr>
+</table>
+
+<h2>5. MVC Request Flow</h2>
+<p class="note">Simple explanation for the demonstration: Browser request goes to a Controller. The Controller calls a Service. The Service uses a Repository if data is needed. The Controller adds results to the Model and returns a Thymeleaf page.</p>
+<p>Example for the home page:</p>
+<ol>
+    <li>The browser opens <code>/</code>.</li>
+    <li><code>PublicController.home()</code> receives the request.</li>
+    <li>It calls <code>ArticleService.findRecentArticles()</code>.</li>
+    <li>The service uses <code>ArticleRepository</code> to get recent articles from H2.</li>
+    <li>The controller puts the articles into the model.</li>
+    <li>Thymeleaf renders <code>home.html</code>.</li>
+</ol>
+
+<h2>6. Main Java Classes</h2>
+<h3>WikiAdminApplication.java</h3>
+<p>This starts the Spring Boot application. It also defines a shared <code>PasswordEncoder</code> bean so the same BCrypt encoder is used when seeding and checking admin passwords.</p>
+
+<h3>AuthController.java</h3>
+<p>This handles <code>/login</code> and <code>/logout</code>. On a successful login it stores the admin object in the session using the name <code>loggedInAdmin</code>. On logout it clears the session.</p>
+
+<h3>PublicController.java</h3>
+<p>This handles public pages: home, article list, single article, categories, and articles by category. These pages do not require login.</p>
+
+<h3>AdminController.java</h3>
+<p>This handles the article management pages. It supports create, edit, save, and delete. If validation fails, it returns the form with clear error messages.</p>
+
+<h3>AdminAccessInterceptor.java and WebConfig.java</h3>
+<p>The interceptor checks all <code>/admin</code> pages before the controller runs. If the session does not contain <code>loggedInAdmin</code>, the user is sent to <code>/login</code>.</p>
+
+<h3>DataSeeder.java</h3>
+<p>This inserts starter records when the app starts. It creates the admin accounts, categories, and sample articles. This makes the app ready to demonstrate straight away.</p>
+
+<h2>7. Models and Database</h2>
+<table>
+    <tr>
+        <th>Model</th>
+        <th>What it Represents</th>
+    </tr>
+    <tr>
+        <td><code>Admin</code></td>
+        <td>Admin username, display name, and hashed password.</td>
+    </tr>
+    <tr>
+        <td><code>Category</code></td>
+        <td>A topic group such as History, Science, or Programming.</td>
+    </tr>
+    <tr>
+        <td><code>Article</code></td>
+        <td>A wiki article with title, content, created date, and one category.</td>
+    </tr>
+    <tr>
+        <td><code>LoginForm</code></td>
+        <td>Temporary form data for login.</td>
+    </tr>
+    <tr>
+        <td><code>ArticleForm</code></td>
+        <td>Temporary form data for creating and editing articles.</td>
+    </tr>
+</table>
+<p>Each article belongs to one category. A category can have many articles. This is handled using JPA annotations in the model classes.</p>
+
+<h2>8. Article CRUD Workflow</h2>
+<h3>Create</h3>
+<p>Admin clicks Create New Article, fills in the form, JavaScript checks the fields, and the form posts to <code>/admin/articles/save</code>. The service validates again before saving.</p>
+
+<h3>Read</h3>
+<p>Visitors can read article previews on the home page and full articles on the detail page.</p>
+
+<h3>Update</h3>
+<p>Admin clicks Edit, changes the form, confirms save, and the same save method updates the existing article.</p>
+
+<h3>Delete</h3>
+<p>Admin clicks Delete. JavaScript asks for confirmation. If confirmed, the controller calls the service to delete the article.</p>
+
+<h2>9. Password Hashing and Sessions</h2>
+<p>The application does not store plain text admin passwords. <code>DataSeeder</code> stores passwords using BCrypt. During login, <code>AuthService.authenticate()</code> checks the submitted password against the stored hash.</p>
+<p>The session keeps the admin logged in while moving between pages. The app checks the session before showing admin pages. Logging out invalidates the session.</p>
+
+<h2>10. Validation</h2>
+<p>The article form uses HTML required fields and a minimum content length. <code>validation.js</code> adds client-side checks and save/delete confirmation. <code>ArticleService.validateArticleForm()</code> repeats the important checks on the server, so invalid data is still rejected if JavaScript is bypassed.</p>
+
+<h2>11. Tests</h2>
+<table>
+    <tr>
+        <th>Test File</th>
+        <th>What it Checks</th>
+    </tr>
+    <tr>
+        <td><code>AuthServiceTest</code></td>
+        <td>Correct login, wrong password, and password stored as a hash.</td>
+    </tr>
+    <tr>
+        <td><code>ArticleServiceTest</code></td>
+        <td>Article validation and saving a valid article.</td>
+    </tr>
+    <tr>
+        <td><code>AdminAccessTest</code></td>
+        <td>Public home page loads, logged-out admin access redirects, and marker login redirects to admin.</td>
+    </tr>
+</table>
+<p>Run the tests with:</p>
+<p><code>mvn test</code></p>
+
+<h2>12. What to Say in the Demonstration</h2>
+<ul>
+    <li>The application is split into controller, service, repository, model, and view layers.</li>
+    <li>Public pages can be viewed without login, but admin CRUD pages require a session.</li>
+    <li>Passwords are checked with BCrypt, not compared as plain text.</li>
+    <li>Article CRUD is complete: create, read, update, and delete.</li>
+    <li>The database is H2 in memory, so the lecturer can run it straight after extracting the project.</li>
+    <li>Validation is done in the browser and again in Java service code.</li>
+    <li>The tests prove important logic works before submission.</li>
+</ul>
+
+<h2>13. Submission Reminder</h2>
+<p>Submit the full Spring Boot project folder, but do not include the <code>target</code> folder. The <code>target</code> folder is generated by Maven and is not needed for marking.</p>
+</body>
+</html>

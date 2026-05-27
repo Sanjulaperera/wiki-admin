@@ -1,0 +1,33 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(pageTitle)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle} + ' | WikiAdmin'">WikiAdmin</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="site-header" th:fragment="header">
+    <div class="page-shell header-row">
+        <a th:href="@{/}" class="brand-link">
+            <img th:src="@{/images/wiki-logo.svg}" alt="WikiAdmin logo" class="brand-logo">
+            <span>WikiAdmin</span>
+        </a>
+        <nav class="nav-links" aria-label="Main navigation">
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/articles}">Articles</a>
+            <a th:href="@{/categories}">Categories</a>
+            <a th:href="@{/admin}">Admin</a>
+            <a th:if="${session.loggedInAdmin != null}" th:href="@{/logout}">Logout</a>
+        </nav>
+    </div>
+</header>
+
+<footer class="site-footer" th:fragment="footer">
+    <p>BIT235 Object Oriented Programming | Web master: Sanjula Perera</p>
+</footer>
+
+<th:block th:fragment="scripts">
+    <script th:src="@{/js/validation.js}"></script>
+</th:block>
+</body>
+</html>

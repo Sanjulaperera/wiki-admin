@@ -1,0 +1,38 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Admin Dashboard')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-shell page-main">
+    <section class="page-title page-title--row">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <p class="lead">Create, update, or delete wiki articles.</p>
+        </div>
+        <a class="button button-primary" th:href="@{/admin/articles/new}">Create New Article</a>
+    </section>
+
+    <section class="admin-list">
+        <article class="article-card article-card--admin" th:each="article : ${articles}">
+            <div>
+                <h2><a th:href="@{/articles/{id}(id=${article.id})}" th:text="${article.title}">Article title</a></h2>
+                <p class="meta">
+                    <span th:text="${#temporals.format(article.createdDate, 'dd MMMM yyyy')}">20 March 2023</span>
+                    | <span th:text="${article.category.name}">Category</span>
+                </p>
+                <p th:text="${article.preview}">Article preview text.</p>
+            </div>
+            <div class="admin-actions">
+                <a class="button button-secondary" th:href="@{/admin/articles/{id}/edit(id=${article.id})}">Edit</a>
+                <form th:action="@{/admin/articles/{id}/delete(id=${article.id})}" method="post" data-confirm-delete>
+                    <button type="submit" class="button button-danger">Delete</button>
+                </form>
+            </div>
+        </article>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

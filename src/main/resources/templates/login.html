@@ -1,79 +1,36 @@
-<!DOCTYPE html>
-<!--
-    login.html
-    Author: Sanjula Perera | Student ID: S1532573
-    Subject: BIT235 Object Oriented Programming
-    Assessment: Assessment 2, Part A – Wiki Administrator Login
-    Date: 2026
-
-    Purpose: This is the View layer for the login page (the "V" in MVC).
-             Thymeleaf processes this template on the server before sending HTML to the browser.
-             The "th:" prefix on attributes are Thymeleaf directives (not standard HTML).
-
-    Key Thymeleaf attributes used:
-      th:object   – binds the form to the LoginForm model object from the Controller
-      th:field    – binds an input field to a LoginForm property (sets name, id, value)
-      th:action   – sets the form's POST action URL
--->
-
-<!-- xmlns:th declares the Thymeleaf namespace so th:* attributes are recognised -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Admin Login')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
 
-<head>
-    <meta charset="UTF-8">
-    <!-- Responsive viewport: ensures the page scales correctly on all screen sizes -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wiki Admin – Login</title>
-    <!-- Link to external stylesheet in /static/css/ folder -->
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<main class="page-shell page-main page-main--narrow">
+    <section class="panel">
+        <h1>Admin Login</h1>
+        <p class="lead">Sign in to manage wiki articles.</p>
 
-<body class="login-body">
-    <header class="site-header">
-        <div class="page-shell header-row">
-            <h1 class="brand-name">WikiAdmin</h1>
-            <p class="header-tagline">Administrator Login</p>
-        </div>
-    </header>
+        <p class="alert alert-error" th:if="${errorMessage}" th:text="${errorMessage}">Invalid login.</p>
 
-    <main class="page-shell page-main">
-        <section class="card">
-            <h2 class="card-title">Sign in</h2>
-            <p class="card-subtitle">Use your administrator credentials to continue.</p>
+        <form th:action="@{/login}" th:object="${loginForm}" method="post" class="form-stack">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" th:field="*{username}" autocomplete="username" required>
+            </div>
 
-            <form th:action="@{/login}" th:object="${loginForm}" method="post" class="login-form">
-                <div class="form-group">
-                    <label for="username" class="form-label">Username</label>
-                    <input type="text"
-                           th:field="*{username}"
-                           class="form-input"
-                           placeholder="Enter username"
-                           autocomplete="username"
-                           required />
-                </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" th:field="*{password}" autocomplete="current-password" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password"
-                           th:field="*{password}"
-                           class="form-input"
-                           placeholder="Enter password"
-                           autocomplete="current-password"
-                           required />
-                </div>
+            <div class="button-row">
+                <button type="submit" class="button button-primary">Log in</button>
+                <a th:href="@{/}" class="button button-secondary">Back to Home</a>
+            </div>
+        </form>
 
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Log In</button>
-                    <button type="button" class="btn btn-secondary" disabled>Register</button>
-                </div>
-            </form>
+        <p class="helper-text">Marker account: username <strong>1</strong>, password <strong>1</strong>.</p>
+    </section>
+</main>
 
-        </section>
-    </main>
-
-    <footer class="site-footer">
-        <p>BIT235 Object Oriented Programming | Assessment 2 Part A</p>
-    </footer>
-
+<footer th:replace="~{fragments/layout :: footer}"></footer>
 </body>
 </html>

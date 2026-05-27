@@ -1,0 +1,51 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${pageTitle})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header}"></header>
+
+<main class="page-shell page-main page-main--narrow">
+    <section class="panel">
+        <h1 th:text="${pageTitle}">Article Form</h1>
+        <p class="lead">All fields are required.</p>
+
+        <div class="alert alert-error" th:if="${errors != null and !errors.isEmpty()}">
+            <p th:each="error : ${errors}" th:text="${error}">Error message</p>
+        </div>
+
+        <form th:action="@{/admin/articles/save}" th:object="${articleForm}" method="post" class="form-stack" data-article-form>
+            <input type="hidden" th:field="*{id}">
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" th:field="*{title}" maxlength="150" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryId">Category</label>
+                <select th:field="*{categoryId}" required>
+                    <option value="">Select a category</option>
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}">Category</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea th:field="*{content}" rows="9" required minlength="30"></textarea>
+            </div>
+
+            <p class="alert alert-error" data-form-error hidden></p>
+
+            <div class="button-row">
+                <button type="submit" class="button button-primary">Save Article</button>
+                <a class="button button-secondary" th:href="@{/admin}">Cancel</a>
+            </div>
+        </form>
+    </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+</body>
+</html>

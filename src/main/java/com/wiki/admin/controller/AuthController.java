@@ -2,7 +2,7 @@
  * AuthController.java
  * Author: Sanjula Perera | Student ID: S1532573
  * Subject: BIT235 Object Oriented Programming
- * Assessment: Assessment 2, Part A - Wiki Administrator Login
+ * Assessment: Assessment 2, Part B - Wiki Content Management and Admin Console
  * Date: 2026
  *
  * Controller for the login flow.
@@ -11,8 +11,11 @@
 
 package com.wiki.admin.controller;
 
+import com.wiki.admin.model.Admin;
 import com.wiki.admin.model.LoginForm;
 import com.wiki.admin.service.AuthService;
+import jakarta.servlet.http.HttpSession;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,51 +26,41 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class AuthController {
 
-    // Service used for authentication logic.
     @Autowired
     private AuthService authService;
 
-    // Redirect root path to login page.
-    @GetMapping("/")
-    public String home() {
-        return "redirect:/login";
-    }
-
-    // Show login page with an empty form object.
     @GetMapping("/login")
-    public String showLoginPage(Model model) {
+    public String showLoginPage(Model model, HttpSession session) {
+        if (session.getAttribute("loggedInAdmin") != null) {
+            return "redirect:/admin";
+        }
+
         model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
 
-    // Process submitted credentials.
     @PostMapping("/login")
     public String processLogin(
             @ModelAttribute("loginForm") LoginForm loginForm,
-            Model model) {
+            Model model,
+            HttpSession session) {
 
-        String submittedUsername = loginForm.getUsername();
-        String submittedPassword = loginForm.getPassword();
+        Optional<Admin> admin = authService.authenticate(loginForm.getUsername(), loginForm.getPassword());
 
-        boolean isAuthenticated = authService.authenticate(submittedUsername, submittedPassword);
-
-        if (isAuthenticated) {
-            String welcomeMessage = authService.buildWelcomeMessage(submittedUsername);
-            model.addAttribute("welcomeMessage", welcomeMessage);
-            model.addAttribute("username", submittedUsername);
-            return "welcome";
+        if (admin.isPresent()) {
+            session.setAttribute("loggedInAdmin", admin.get());
+            return "redirect:/admin";
 
         } else {
-            String errorMessage = authService.buildErrorMessage();
-            model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("errorMessage", authService.buildErrorMessage());
             model.addAttribute("loginForm", loginForm);
-            return "error";
+            return "login";
         }
     }
 
-    // Return to login page.
     @GetMapping("/logout")
-    public String logout() {
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/login";
     }
 

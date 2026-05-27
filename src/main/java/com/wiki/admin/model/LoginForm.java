@@ -2,7 +2,7 @@
  * LoginForm.java
  * Author: Sanjula Perera | Student ID: S1532573
  * Subject: BIT235 Object Oriented Programming
- * Assessment: Assessment 2, Part A - Wiki Administrator Login
+ * Assessment: Assessment 2, Part B - Wiki Content Management and Admin Console
  * Date: 2026
  *
  * Model object used to bind login form fields.
