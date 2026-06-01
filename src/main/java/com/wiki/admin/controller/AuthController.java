@@ -4,9 +4,6 @@
  * Subject: BIT235 Object Oriented Programming
  * Assessment: Assessment 2, Part B - Wiki Content Management and Admin Console
  * Date: 2026
- *
- * Controller for the login flow.
- * Receives requests, calls AuthService, and returns the correct Thymeleaf view.
  */
 
 package com.wiki.admin.controller;

@@ -4,8 +4,6 @@
  * Subject: BIT235 Object Oriented Programming
  * Assessment: Assessment 2, Part B - Wiki Content Management and Admin Console
  * Date: 2026
- *
- * Service layer for authentication and user messages.
  */
 
 package com.wiki.admin.service;
