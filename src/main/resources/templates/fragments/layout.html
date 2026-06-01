@@ -9,6 +9,7 @@
 <header class="site-header" th:fragment="header">
     <div class="page-shell header-row">
         <a th:href="@{/}" class="brand-link">
+            <img th:src="@{/images/logo.svg}" alt="Wiki Application logo" class="site-logo" width="32" height="32">
             <span>Wiki Application</span>
         </a>
         <nav class="nav-links" aria-label="Main navigation">
@@ -22,7 +23,7 @@
 </header>
 
 <footer class="site-footer" th:fragment="footer">
-    <p>BIT235 Object Oriented Programming | S1532573</p>
+    <p>Web master: Sanjula Perera | Student ID: S1532573 | BIT235 Object Oriented Programming</p>
 </footer>
 
 <th:block th:fragment="scripts">
